@@ -39,11 +39,19 @@ add_executable(picowalker
     src/drivers/power_pico.h
     src/drivers/audio_pico_pwm.c
     src/drivers/onboard_log.c
+    src/msc_disk.c
+    src/usb_descriptors.c
+    src/tusb_config.h
     src/picowalker-defs.h
 )
 
 ## PIO stuff for SDK
 pico_generate_pio_header(picowalker ${CMAKE_CURRENT_LIST_DIR}/src/drivers/qspi.pio)
+
+## Add src/ as a header location for tinyusb
+target_include_directories(picowalker PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
 ## Enable usb, uart etc for stdio
 #pico_enable_stdio_usb(picowalker 1)
@@ -69,5 +77,8 @@ target_link_libraries(picowalker
     hardware_timer
     hardware_pwm
     hardware_flash
+    tinyusb_device
+    tinyusb_board
     ${CMAKE_SOURCE_DIR}/lib/libpicowalker-core.a
 )
+

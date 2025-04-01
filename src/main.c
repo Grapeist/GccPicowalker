@@ -5,10 +5,13 @@
 #include "hardware/clocks.h"
 #include "hardware/pll.h"
 
+#include <tusb.h>
+
 #include "drivers/eeprom_pico_m95512.h"
 #include "picowalker.h"
 #include "picowalker-defs.h"
 
+extern void (*current_loop)(void);
 int main() {
     bi_decl(bi_program_description("picowalker"));
 
@@ -74,9 +77,79 @@ int main() {
     //audio_test_program();
 
     // Start picowalker-core
-    walker_entry();
+    //walker_entry();
+    walker_setup();
+
+    tusb_rhport_init_t dev_init = {
+        .role = TUSB_ROLE_DEVICE,
+        .speed = TUSB_SPEED_AUTO
+    };
+
+    tusb_init(BOARD_TUD_RHPORT, &dev_init);
+    board_init();
+
+    //if(board_init_after_tusb) {
+    //    board_init_after_tusb();
+    //}
+
+    while(1) {
+        tud_task();
+        current_loop();
+        //walker_loop();
+    }
 
     // unreachable
     while(1);
+}
+
+void tud_mount_cb(void) {
+    printf("[Info] tusb mounted\n");
+}
+
+void tud_umount_cb(void) {
+    printf("[Info] tusb unmounted\n");
+}
+
+void tud_suspend_cb(bool remote_wakeup_en) { (void)remote_wakeup_en; }
+void tud_resume_cb(void) {}
+
+void cdc_task(void) {
+  // connected() check for DTR bit
+  // Most but not all terminal client set this when making connection
+  // if ( tud_cdc_connected() )
+  {
+    // connected and there are data available
+    if (tud_cdc_available()) {
+      // read data
+      char buf[64];
+      uint32_t count = tud_cdc_read(buf, sizeof(buf));
+      (void) count;
+
+      // Echo back
+      // Note: Skip echo by commenting out write() and write_flush()
+      // for throughput test e.g
+      //    $ dd if=/dev/zero of=/dev/ttyACM0 count=10000
+      tud_cdc_write(buf, count);
+      tud_cdc_write_flush();
+    }
+  }
+}
+
+// Invoked when cdc when line state changed e.g connected/disconnected
+void tud_cdc_line_state_cb(uint8_t itf, bool dtr, bool rts) {
+  (void) itf;
+  (void) rts;
+
+  // TODO set some indicator
+  if (dtr) {
+    // Terminal connected
+  } else {
+    // Terminal disconnected
+  }
+}
+
+// Invoked when CDC interface received data from host
+void tud_cdc_rx_cb(uint8_t itf) {
+  (void) itf;
 }
 
