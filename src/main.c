@@ -97,6 +97,7 @@ int main() {
         tud_task();
         current_loop();
         //walker_loop();
+        cdc_task();
     }
 
     // unreachable
