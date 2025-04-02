@@ -140,6 +140,7 @@ void cdc_task(void) {
       //    $ dd if=/dev/zero of=/dev/ttyACM0 count=10000
       tud_cdc_write(buf, count);
       tud_cdc_write_flush();
+      printf(buf);
     }
   }
 }
