@@ -79,7 +79,7 @@ int main() {
 
     // Start picowalker-core
     //walker_entry();
-    walker_setup();
+
 
     tusb_rhport_init_t dev_init = {
         .role = TUSB_ROLE_DEVICE,
@@ -88,6 +88,8 @@ int main() {
 
     tusb_init(BOARD_TUD_RHPORT, &dev_init);
     board_init();
+
+    walker_setup();
 
     //if(board_init_after_tusb) {
     //    board_init_after_tusb();
