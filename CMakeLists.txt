@@ -38,6 +38,7 @@ add_executable(picowalker
     src/drivers/power_pico.c
     src/drivers/power_pico.h
     src/drivers/audio_pico_pwm.c
+    src/drivers/onboard_log.c
     src/picowalker-defs.h
 )
 
@@ -67,5 +68,6 @@ target_link_libraries(picowalker
     hardware_pio
     hardware_timer
     hardware_pwm
+    hardware_flash
     ${CMAKE_SOURCE_DIR}/lib/libpicowalker-core.a
 )
