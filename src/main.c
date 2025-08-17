@@ -86,8 +86,8 @@ int main() {
         .speed = TUSB_SPEED_AUTO
     };
 
-    tusb_init(BOARD_TUD_RHPORT, &dev_init);
     board_init();
+    tusb_init(BOARD_TUD_RHPORT, &dev_init);
 
     walker_setup();
 
@@ -107,7 +107,7 @@ int main() {
 }
 
 void tud_mount_cb(void) {
-    printf("[Info] tusb mounted\n");
+    printf("[Info ] tusb mounted\n");
 
     // Halt sleep timer so we don't mess up tusb
     power_sleep_enabled = false;
@@ -115,7 +115,7 @@ void tud_mount_cb(void) {
 }
 
 void tud_umount_cb(void) {
-    printf("[Info] tusb unmounted\n");
+    printf("[Info ] tusb unmounted\n");
 
     // Unmount and now we're safe to sleep
     power_sleep_enabled = true;
