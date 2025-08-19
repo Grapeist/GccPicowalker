@@ -40,6 +40,7 @@ add_executable(picowalker
     src/drivers/audio_pico_pwm.c
     src/drivers/onboard_log.c
     src/msc_disk.c
+    src/msc_disk.h
     src/usb_descriptors.c
     src/tusb_config.h
     src/picowalker-defs.h
