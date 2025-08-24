@@ -1,28 +1,16 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/mamba2410/picowalker/blob/hardware-v0.1/assets/picowalker_logo_white.png?raw=true">
-    <img width=256 src="https://github.com/mamba2410/picowalker/blob/hardware-v0.1/assets/picowalker_logo_black.png?raw=true">
-  </picture>
-</p>
-
-# picowalker
+# GameCube controller picowalker
 
 ## About
 
-The overall Picowalker project aims to recreate the Pokewalker from Pokemon HeartGold/SoulSilver using custom hardware based around the Raspberry Pi Pico/rp2040 series of chips.
-This includes custom hardware, software and drivers, with some modern convenience features added in as well.
-Users should also be able to build their own based on a Raspberry Pi Pico, given that drivers are available for it.
+The overall Picowalker project is to make a cool kinda of debugger/ walker GameCube controller. I have a few ideas for how I want this project to feel. 
+This includes the features in the base project, and a few extra things like the steps being counted via button presses, and potentially a screen for a gcc phob.
 
-This repo is the board-specific firmware which supports the picowalker-core application code.
-
+I take no credit for the work that has gine into this, please check the links.
 See the core code for this project: [picowalker-core](https://github.com/mamba2410/picowalker-core).
 
 See the custom hardware these drivers are for: [picowalker-hardware](https://github.com/mamba2410/picowalker-hardware)
 
-Releases here will contain a full UF2 image which can be uploaded to the v1.0 picowalker hardware to run a full picowalker device.
 
-There are multiple branches in this repo, all with similar functionality
-(providing the "driver API" for the picowalker-core).
 
 - `hardware-v0.1` - The current active branch, drivers specific to the 
     [custom PCB](https://github.com/mamba2410/picowalker-hardware) used as a
